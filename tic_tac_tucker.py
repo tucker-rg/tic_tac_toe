@@ -13,12 +13,12 @@ def print_board(board_name):
 
 def get_position(player, choice, axis, options):
     '''asks user to make a move'''
-    position = input(f'choose a {choice}, player {player} ({options}): ').lower()
+    position = input(f'Player {player}, choose a {choice}: ({options}) ').lower()
     if position in axis:
         return position
     else:
-        print('I didn\'t understand. Choose again')
-        position = get_position(choice, axis, options)
+        print('\n* * * I didn\'t understand. Choose again * * * \n')
+        position = get_position(player, choice, axis, options)
         return position
 
 def player_turn(turn_num):
@@ -30,7 +30,7 @@ def player_turn(turn_num):
     row = get_position(marker, 'row', rows, 'top, middle, bottom')
     column = get_position(marker, 'column', columns, 'left, middle, right')
     if check_move(row, column):
-        print('that spot is taken')
+        print('\n* * * that spot is taken * * *\n')
         player_turn(turn_num)
     else:
         board[rows[row]][columns[column]] = marker
@@ -56,10 +56,13 @@ def check_win(board_names, turn_num):
         pass
 
 def check_rows(board_name):
-    '''check for 3 in a row across a list- I'm sure there is a better way'''
+    '''check for 3 in a row across a list'''
     for x in board_name:
         if x[0] == x[1] and x[0] == x[2]:
-            check_winner(x[0])
+            if x[0] != '_':
+                end_game(x[0])
+            else:
+                pass
         else:
             pass
 
@@ -69,22 +72,16 @@ def rotate_board(board_name):
     return new_board
 
 def check_diagonal(board_name):
-    '''I'm sure there is a neater way to do this by shuffling the board and reusing the check_win function'''
+    '''I'm sure there is a neater way to do this by shuffling the board and reusing the check_rows function'''
     if board_name[0][0] == board_name[1][1] and board_name[0][0] == board_name[2][2]:
-        check_winner(board_name[0][0])
+        end_game(board_name[0][0])
     else:
         pass
 
-def check_winner(mark):
-    '''see if winner is X or O'''
-    if mark == 'X':
-        print('\nX wins')
-        quit()
-    elif mark == 'O':
-        print('\nO wins')
-        quit()
-    else:
-        pass
+def end_game(mark):
+    '''announce the winner'''
+    print(f'\nPlayer {mark} wins')
+    quit()
 
 def main():
     '''this is the game'''
