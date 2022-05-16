@@ -2,7 +2,6 @@
 #structure still seems sloppy. turn count seems sloppy. still boring. dumb computer.
 
 import random
-from tic_tac_screen import *
 
 board = [['_','_','_'],['_','_','_'],['_','_','_']]
 rows = {"top" : 0, "middle" : 1, "bottom" : 2}
