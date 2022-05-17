@@ -66,18 +66,21 @@ def check_rows(board_name):
         else:
             pass
 
-def rotate_board(board_name):
-    '''fixed with some help from stackoverflow'''
-    new_board = list(zip(*reversed(board)))
-    return new_board
-
 def check_diagonal(board_name):
     '''I'm sure there is a neater way to do this by shuffling the board and reusing the check_rows function'''
     if board_name[0][0] == board_name[1][1] and board_name[0][0] == board_name[2][2]:
-        end_game(board_name[0][0])
+        if board_name[0][0] != '_':
+            end_game(board_name[0][0])
+        else:
+            pass
     else:
         pass
 
+def rotate_board(board_name):
+    '''fixed with some help from stackoverflow'''
+    new_board = list(zip(*reversed(board)))
+    return new_board    
+    
 def end_game(mark):
     '''announce the winner'''
     print(f'\nPlayer {mark} wins')
